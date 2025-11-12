@@ -1,0 +1,35 @@
+name,scale,description,standard
+"Superado/No superado","No superado, Superado","Escala binaria en castellano",1
+"No Fet/Fet","No Fet, Fet","Escala binària en valencià",1
+"No satisfactorio/Satisfactorio/Supera lo esperado","No satisfactorio, Satisfactorio, Supera lo esperado","Escala de tres nivells",1
+"Superat/No superat","No superat, Superat","Escala binària valenciana",1
+"Correct/Incorrect (2 point)","Incorrect, Correct","Escala bàsica 2 punts (anglès)",1
+"Deficiente/Regular/Excelente","Deficiente, Regular, Excelente","Escala qualitativa 3 nivells",1
+"Escala de competència per defecte (No és competent encara, Competent)","No és competent encara, Competent","Escala de competència per defecte (valencià)",1
+"Insuficiente, Mal, Regular, Bien, Muy Bien y Excelente (I, M, R, B, MB, E)","I, M, R, B, MB, E","Escala clàssica amb inicials",1
+"Notes (Insuficient, Suficient, Bé, Notable, Excel·lent)","Insuficient, Suficient, Bé, Notable, Excel·lent","Escala valenciana 5 nivells",1
+"Certificación (No certifica, Certifica)","No certifica, Certifica","Escala binària de certificació",1
+"Escala ITE 2011 Valencià (No apte, Apte)","No apte, Apte","Escala ITE oficial en valencià",1
+"Good/Poor (3 point) (* Poor, **, *** Good)","* Poor, **, *** Good","Escala anglesa amb estrelles",1
+"Notas (Insuficiente, Suficiente, Bien, Notable, Sobresaliente)","Insuficiente, Suficiente, Bien, Notable, Sobresaliente","Escala clàssica 5 nivells",1
+"No satisfactorio / Satisfactorio / Supera lo esperado (con puntos) (* No satisfactorio, ** Satisfactorio, *** Supera lo esperado)","* No satisfactorio, ** Satisfactorio, *** Supera lo esperado","Escala amb puntuació (3 nivells)",1
+"Deficient/Regular/Excel·lent","Deficient, Regular, Excel·lent","Escala valenciana 3 nivells",1
+"Yes/No (2 point)","No, Yes","Escala binària anglesa",1
+"Escala de competencia por defecto (No competente aún, Competente)","No competente aún, Competente","Escala de competència castellana",1
+"Abandono, No Apto, Apto","Abandono, No Apto, Apto","Escala FP 3 nivells",1
+"Fet / No fet (Ordre invertit - valor mínim: Fet, màxim: No fet - Precaució amb el seu ús)","Fet, No fet","Escala invertida (valencià)",1
+"Hecho / No hecho (Orden invertido - valor mínimo: Hecho, máximo: No hecho - Precaución con su uso)","Hecho, No hecho","Escala invertida (castellano)",1
+"No hecho / Hecho","No hecho, Hecho","Escala bàsica castellana",1
+"APTE / NO APTE (Ordre invertit - valor mínim: APTE, màxim: NO APTE - Precaució amb el seu ús)","APTE, NO APTE","Escala invertida (valencià)",1
+"Formes de coneixement separades i connectades (Sobretot coneixements separats, Separats i connectats, Sobretot coneixements connectats)","Sobretot coneixements separats, Separats i connectats, Sobretot coneixements connectats","Escala metacognitiva (valencià)",1
+"Excellent/Very poor (4 point) (* Very poor, **, ***, **** Excellent)","* Very poor, **, ***, **** Excellent","Escala anglesa 4 nivells",1
+"Satisfactorio con penalización (No satisfactorio, Satisfactorio con retraso, Satisfactorio, Supera lo esperado)","No satisfactorio, Satisfactorio con retraso, Satisfactorio, Supera lo esperado","Escala amb penalització",1
+"Excellent/Very poor (5 point) (* Very poor, **, ***, ****, ***** Excellent)","* Very poor, **, ***, ****, ***** Excellent","Escala anglesa 5 nivells",1
+"Vías de conocimiento separadas y conectadas (Muy individualista, Término medio, Muy comunicativo)","Muy individualista, Término medio, Muy comunicativo","Escala reflexiva castellana",1
+"Notas con matrícula (Insuficiente, Suficiente, Bien, Notable, Sobresaliente, Matrícula)","Insuficiente, Suficiente, Bien, Notable, Sobresaliente, Matrícula","Escala clàssica amb matrícula",1
+"Notes amb matrícula (Insuficient, Suficient, Bé, Notable, Excel·lent, Matrícula)","Insuficient, Suficient, Bé, Notable, Excel·lent, Matrícula","Escala valenciana amb matrícula",1
+"Escala ITE 2011 (No apto, Apto)","No apto, Apto","Escala ITE castellana",1
+"INTEF15 (No realizada, A revisar, Superada, Excelente)","No realizada, A revisar, Superada, Excelente","Escala INTEF 4 nivells",1
+"Satisfactory","Not satisfactory, Satisfactory, Outstanding","Escala anglesa 3 nivells",1
+"NO APTO, APTO","NO APTO, APTO","Escala FP castellana",1
+"No realizado, Realizado","No realizado, Realizado","Escala simple de finalització",1

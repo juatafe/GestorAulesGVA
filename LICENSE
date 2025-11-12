@@ -1,0 +1,29 @@
+Gestor Aules GVA – Escales i Outcomes
+© 2025 Juan Bautista Talens Felis (jbtalens)
+Llicència: GNU General Public License v3.0 (GPL-3.0)
+
+Aquest programa és programari lliure: pots redistribuir-lo i/o modificar-lo sota els termes
+de la Llicència Pública General GNU, publicada per la Free Software Foundation, ja siga
+la versió 3 de la Llicència o qualsevol versió posterior.
+
+Aquest programa es distribueix amb l’esperança que siga útil,
+però SENSE CAP GARANTIA; fins i tot sense la garantia implícita de
+COMERCIABILITAT o ADEQUACIÓ PER A UN PROPÒSIT PARTICULAR.
+Consulta la Llicència Pública General GNU per a més detalls.
+
+Hauries d’haver rebut una còpia de la Llicència Pública General GNU
+juntament amb aquest programa. En cas contrari, consulta:
+https://www.gnu.org/licenses/gpl-3.0.html
+
+---
+
+🔹 Projecte desenvolupat per:
+Juan Bautista Talens Felis (jbtalens)
+
+🔹 Basat parcialment en idees del projecte:
+"GestionCalificacionesAules" – David Martínez Peña i Josep García
+(Distribuït sota GPL-3.0)
+
+🔹 Objectiu:
+Automatitzar la importació d’escales i la creació de resultats d’aprenentatge (RA–CE)
+dins dels cursos Moodle d’Aules GVA, respectant la filosofia de programari lliure.
