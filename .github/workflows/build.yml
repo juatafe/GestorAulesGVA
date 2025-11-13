@@ -162,9 +162,23 @@ jobs:
     - name: Prepare release files
       run: |
         mkdir -p release_files
-        cp artifacts/GestorAulesGVA-linux/GestorAulesGVA release_files/
+        
+        # Per Linux: Troba l'AppImage
+        if [ -f "artifacts/GestorAulesGVA-linux/"*.AppImage ]; then
+          cp artifacts/GestorAulesGVA-linux/*.AppImage release_files/GestorAulesGVA.AppImage
+          echo "✅ AppImage copiat"
+        else
+          echo "❌ No s'ha trobat AppImage"
+          # Llista què hi ha realment
+          ls -la artifacts/GestorAulesGVA-linux/
+        fi
+        
+        # Windows i macOS
         cp artifacts/GestorAulesGVA-windows/GestorAulesGVA.exe release_files/
         cp artifacts/GestorAulesGVA-macos/GestorAulesGVA release_files/
+        
+        echo "=== Arxius preparats ==="
+        ls -la release_files/
 
     - name: Create Release
       uses: softprops/action-gh-release@v1
