@@ -31,7 +31,21 @@ jobs:
 
     - name: Create AppImage
       run: |
-        # ... (codi existent)
+        # DESCARREGA linuxdeploy 
+        wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
+        chmod +x linuxdeploy-x86_64.AppImage
+        
+        # Crea l'AppDir
+        mkdir -p AppDir/usr/bin
+        mkdir -p AppDir/usr/share/applications
+        mkdir -p AppDir/usr/share/icons/hicolor/256x256/apps
+        
+        # Copia l'executable de la teva compilació
+        cp dist/linux/GestorAulesGVA AppDir/usr/bin/
+        cp icons/gestor-aules.png AppDir/usr/share/icons/hicolor/256x256/apps/gestor-aules.png
+        cp GestorAulesGVA.desktop AppDir/usr/share/applications/
+        
+        # Crea l'AppImage
         ./linuxdeploy-x86_64.AppImage \
           --appdir AppDir \
           --icon-file AppDir/usr/share/icons/hicolor/256x256/apps/gestor-aules.png \
@@ -42,20 +56,14 @@ jobs:
         mv Gestor_Aules_GVA-*.AppImage GestorAulesGVA.AppImage
         rm -f linuxdeploy-x86_64.AppImage  # Elimina linuxdeploy
 
+        
     - name: Upload Linux artifact
       uses: actions/upload-artifact@v4
       with:
         name: GestorAulesGVA-linux
         path: GestorAulesGVA.AppImage
 
-    - name: Upload Linux artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: GestorAulesGVA-linux
-        path: |
-          *.AppImage
-          GestorAulesGVA-*.AppImage
-        if-no-files-found: warn
+
 
   build-windows:
     timeout-minutes: 45
