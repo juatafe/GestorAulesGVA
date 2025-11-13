@@ -7,23 +7,9 @@ on:
     types: [created]
 
 jobs:
-  build:
-    strategy:
-      matrix:
-        include:
-          - os: ubuntu-latest
-            name: linux
-            icon: icons/gestor-aules.png
-          - os: windows-latest
-            name: windows
-            icon: icons/gestor-aules.ico
-            args: --console
-          - os: macos-latest
-            name: macos
-            icon: icons/gestor-aules.icns
-            args: --windowed
-
-    runs-on: ${{ matrix.os }}
+  build-linux:
+    timeout-minutes: 45
+    runs-on: ubuntu-latest
     
     steps:
     - name: Checkout code
@@ -39,34 +25,110 @@ jobs:
         pip install -r requirements.txt
         pip install pyinstaller
 
-    - name: Build executable
+    - name: Build Linux executable
       run: |
         pyinstaller --name GestorAulesGVA \
           --onefile \
           --add-data "icons:icons" \
           --add-data "data:data" \
-          --icon "${{ matrix.icon }}" \
+          --icon "icons/gestor-aules.png" \
           --clean \
           --noconfirm \
-          ${{ matrix.args }} \
+          --console \
           gestor_aules_gva/__main__.py
       env:
-        PYTHONIOENCODING: utf-8  # ← AQUESTA ÉS LA CLAU!
+        PYTHONIOENCODING: utf-8
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v4  # ← ACTUALITZAT
+    - name: Upload Linux artifact
+      uses: actions/upload-artifact@v4
       with:
-        name: GestorAulesGVA-${{ matrix.name }}
-        path: dist/GestorAulesGVA*
+        name: GestorAulesGVA-linux
+        path: dist/GestorAulesGVA
+
+  build-windows:
+    timeout-minutes: 45
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        pip install pyinstaller
+
+    - name: Build Windows executable
+      run: |
+        pyinstaller --name GestorAulesGVA `
+          --onefile `
+          --add-data "icons;icons" `
+          --add-data "data;data" `
+          --icon "icons/gestor-aules.ico" `
+          --clean `
+          --noconfirm `
+          --console `
+          gestor_aules_gva/__main__.py
+      env:
+        PYTHONIOENCODING: utf-8
+
+    - name: Upload Windows artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: GestorAulesGVA-windows
+        path: dist/GestorAulesGVA.exe
+
+  build-macos:
+    timeout-minutes: 45
+    runs-on: macos-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        pip install pyinstaller
+
+    - name: Build macOS executable
+      run: |
+        pyinstaller --name GestorAulesGVA \
+          --onefile \
+          --add-data "icons:icons" \
+          --add-data "data:data" \
+          --icon "icons/gestor-aules.icns" \
+          --clean \
+          --noconfirm \
+          --windowed \
+          gestor_aules_gva/__main__.py
+      env:
+        PYTHONIOENCODING: utf-8
+
+    - name: Upload macOS artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: GestorAulesGVA-macos
+        path: dist/GestorAulesGVA
 
   release:
-    needs: build
+    needs: [build-linux, build-windows, build-macos]
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/')
     
     steps:
     - name: Download all artifacts
-      uses: actions/download-artifact@v4  # ← ACTUALITZAT
+      uses: actions/download-artifact@v4
       with:
         path: ./artifacts
 
