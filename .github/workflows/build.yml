@@ -9,7 +9,7 @@ on:
 jobs:
   build-linux:
     timeout-minutes: 45
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     
     steps:
     - name: Checkout code
@@ -24,11 +24,14 @@ jobs:
       run: |
         pip install -r requirements.txt
         pip install pyinstaller
+        wget https://github.com/AppImageCrafters/appimage-builder/releases/download/v1.1.0/appimage-builder-1.1.0-x86_64.AppImage
+        chmod +x appimage-builder-1.1.0-x86_64.AppImage
+        sudo mv appimage-builder-1.1.0-x86_64.AppImage /usr/local/bin/appimage-builder
 
-    - name: Build Linux executable
+    - name: Build executable
       run: |
         pyinstaller --name GestorAulesGVA \
-          --onefile \
+          --onedir \
           --add-data "icons:icons" \
           --add-data "data:data" \
           --icon "icons/gestor-aules.png" \
@@ -36,15 +39,16 @@ jobs:
           --noconfirm \
           --console \
           gestor_aules_gva/__main__.py
-      env:
-        PYTHONIOENCODING: utf-8
+
+    - name: Create AppImage
+      run: |
+        appimage-builder --recipe AppImageBuilder.yml
 
     - name: Upload Linux artifact
       uses: actions/upload-artifact@v4
       with:
         name: GestorAulesGVA-linux
-        path: dist/GestorAulesGVA
-
+        path: GestorAulesGVA-*-x86_64.AppImage
   build-windows:
     timeout-minutes: 45
     runs-on: windows-latest
