@@ -4,80 +4,80 @@
       "nombre": "RA1: Selecciona los criterios que configuran las redes para la transmisión de voz y datos, describiendo sus principales características y funcionalidad.",
       "peso": 15,
       "criterios": [
-        { "nombre": "CE1.a: Se han identificado los tipos de instalaciones relacionados con las redes de transmisión de voz y datos.", "peso": 17 },
-        { "nombre": "CE1.b: Se han identificado los criterios (canalizaciones, cableados, antenas, armarios, «racks» y cajas, entre otros) de una red de transmisión de datos.", "peso": 17 },
-        { "nombre": "CE1.c: Se han clasificado los tipos de conductores (par de cobre, cable coaxial, fibra óptica, entre otros).", "peso": 17 },
-        { "nombre": "CE1.d: Se ha determinado la tipología de las diferentes cajas (registros, armarios, «racks», cajas de superficie, de empotrar, entre otros).", "peso": 17 },
-        { "nombre": "CE1.e: Se han descrito los tipos de fijaciones (tacos, bridas, tornillos, tuercas, grapas, entre otros) de canalizaciones y sistemas.", "peso": 16 },
-        { "nombre": "CE1.f: Se han relacionado las fijaciones con el elemento a sujetar.", "peso": 16 }
+        { "nombre": "RA1.a: Se han identificado los tipos de instalaciones relacionados con las redes de transmisión de voz y datos.", "peso": 17 },
+        { "nombre": "RA1.b: Se han identificado los criterios (canalizaciones, cableados, antenas, armarios, «racks» y cajas, entre otros) de una red de transmisión de datos.", "peso": 17 },
+        { "nombre": "RA1.c: Se han clasificado los tipos de conductores (par de cobre, cable coaxial, fibra óptica, entre otros).", "peso": 17 },
+        { "nombre": "RA1.d: Se ha determinado la tipología de las diferentes cajas (registros, armarios, «racks», cajas de superficie, de empotrar, entre otros).", "peso": 17 },
+        { "nombre": "RA1.e: Se han descrito los tipos de fijaciones (tacos, bridas, tornillos, tuercas, grapas, entre otros) de canalizaciones y sistemas.", "peso": 16 },
+        { "nombre": "RA1.f: Se han relacionado las fijaciones con el elemento a sujetar.", "peso": 16 }
       ]
     },
     {
       "nombre": "RA2: Monta canalizaciones, soportes y armarios en redes de transmisión de voz y datos, identificando los criterios en el plano de la instalación y aplicando técnicas de montaje.",
       "peso": 20,
       "criterios": [
-        { "nombre": "CE2.a: Se han seleccionado las técnicas y herramientas empleadas para la instalación de canalizaciones y su adaptación.", "peso": 13 },
-        { "nombre": "CE2.b: Se han tenido en cuenta las fases típicas para el montaje de un «rack».", "peso": 13 },
-        { "nombre": "CE2.c: Se han identificado en un croquis del edificio o parte del edificio los lugares de ubicación de los criterios de la instalación.", "peso": 12 },
-        { "nombre": "CE2.d: Se ha preparado la ubicación de cajas y canalizaciones.", "peso": 12 },
-        { "nombre": "CE2.e: Se han preparado y/o mecanizado las canalizaciones y cajas.", "peso": 12 },
-        { "nombre": "CE2.f: Se han montado los armarios («racks») interpretando el plano.", "peso": 12 },
-        { "nombre": "CE2.g: Se han montado canalizaciones, cajas y tubos, entre otros, asegurando su fijación mecánica.", "peso": 13 },
-        { "nombre": "CE2.h: Se han aplicado normas de seguridad en el uso de herramientas y sistemas.", "peso": 13 }
+        { "nombre": "RA2.a: Se han seleccionado las técnicas y herramientas empleadas para la instalación de canalizaciones y su adaptación.", "peso": 13 },
+        { "nombre": "RA2.b: Se han tenido en cuenta las fases típicas para el montaje de un «rack».", "peso": 13 },
+        { "nombre": "RA2.c: Se han identificado en un croquis del edificio o parte del edificio los lugares de ubicación de los criterios de la instalación.", "peso": 12 },
+        { "nombre": "RA2.d: Se ha preparado la ubicación de cajas y canalizaciones.", "peso": 12 },
+        { "nombre": "RA2.e: Se han preparado y/o mecanizado las canalizaciones y cajas.", "peso": 12 },
+        { "nombre": "RA2.f: Se han montado los armarios («racks») interpretando el plano.", "peso": 12 },
+        { "nombre": "RA2.g: Se han montado canalizaciones, cajas y tubos, entre otros, asegurando su fijación mecánica.", "peso": 13 },
+        { "nombre": "RA2.h: Se han aplicado normas de seguridad en el uso de herramientas y sistemas.", "peso": 13 }
       ]
     },
     {
       "nombre": "RA3: Despliega el cableado de una red de voz y datos analizando su trazado.",
       "peso": 20,
       "criterios": [
-        { "nombre": "CE3.a: Se han diferenciado los medios de transmisión empleados para voz y datos.", "peso": 14 },
-        { "nombre": "CE3.b: Se han reconocido los detalles del cableado de la instalación y su despliegue (categoría del cableado, espacios por los que discurre, soporte para las canalizaciones, entre otros).", "peso": 14 },
-        { "nombre": "CE3.c: Se han utilizado los tipos de guías pasacables, indicando la forma óptima de sujetar cables y guía.", "peso": 14 },
-        { "nombre": "CE3.d: Se ha cortado y etiquetado el cable.", "peso": 14 },
-        { "nombre": "CE3.e: Se han montado los armarios de comunicaciones y sus accesorios.", "peso": 14 },
-        { "nombre": "CE3.f: Se han montado y conexionado las tomas de usuario y paneles de parcheo.", "peso": 15 },
-        { "nombre": "CE3.g: Se ha trabajado con la calidad y seguridad requeridas.", "peso": 15 }
+        { "nombre": "RA3.a: Se han diferenciado los medios de transmisión empleados para voz y datos.", "peso": 14 },
+        { "nombre": "RA3.b: Se han reconocido los detalles del cableado de la instalación y su despliegue (categoría del cableado, espacios por los que discurre, soporte para las canalizaciones, entre otros).", "peso": 14 },
+        { "nombre": "RA3.c: Se han utilizado los tipos de guías pasacables, indicando la forma óptima de sujetar cables y guía.", "peso": 14 },
+        { "nombre": "RA3.d: Se ha cortado y etiquetado el cable.", "peso": 14 },
+        { "nombre": "RA3.e: Se han montado los armarios de comunicaciones y sus acRAsorios.", "peso": 14 },
+        { "nombre": "RA3.f: Se han montado y conexionado las tomas de usuario y paneles de parcheo.", "peso": 15 },
+        { "nombre": "RA3.g: Se ha trabajado con la calidad y seguridad requeridas.", "peso": 15 }
       ]
     },
     {
       "nombre": "RA4: Instala criterios y sistemas de transmisión de voz y datos, reconociendo y aplicando las diferentes técnicas de montaje.",
       "peso": 15,
       "criterios": [
-        { "nombre": "CE4.a: Se han ensamblado los criterios que consten de varias piezas.", "peso": 13 },
-        { "nombre": "CE4.b: Se han identificado el cableado en función de su etiquetado o colores.", "peso": 13 },
-        { "nombre": "CE4.c: Se han colocado los sistemas o criterios (antenas, amplificadores, entre otros) en su lugar de ubicación.", "peso": 12 },
-        { "nombre": "CE4.d: Se han seleccionado herramientas.", "peso": 12 },
-        { "nombre": "CE4.e: Se han fijado los sistemas o criterios.", "peso": 12 },
-        { "nombre": "CE4.f: Se ha conectado el cableado con los sistemas y criterios, asegurando un buen contacto.", "peso": 12 },
-        { "nombre": "CE4.g: Se han colocado los embellecedores, tapas y criterios decorativos.", "peso": 13 },
-        { "nombre": "CE4.h: Se han aplicado normas de seguridad, en el uso de herramientas y sistemas.", "peso": 13 }
+        { "nombre": "RA4.a: Se han ensamblado los criterios que consten de varias piezas.", "peso": 13 },
+        { "nombre": "RA4.b: Se han identificado el cableado en función de su etiquetado o colores.", "peso": 13 },
+        { "nombre": "RA4.c: Se han colocado los sistemas o criterios (antenas, amplificadores, entre otros) en su lugar de ubicación.", "peso": 12 },
+        { "nombre": "RA4.d: Se han seleccionado herramientas.", "peso": 12 },
+        { "nombre": "RA4.e: Se han fijado los sistemas o criterios.", "peso": 12 },
+        { "nombre": "RA4.f: Se ha conectado el cableado con los sistemas y criterios, asegurando un buen contacto.", "peso": 12 },
+        { "nombre": "RA4.g: Se han colocado los embelleRAdores, tapas y criterios decorativos.", "peso": 13 },
+        { "nombre": "RA4.h: Se han aplicado normas de seguridad, en el uso de herramientas y sistemas.", "peso": 13 }
       ]
     },
     {
       "nombre": "RA5: Realiza operaciones básicas de configuración en redes locales cableadas relacionándolas con sus aplicaciones.",
       "peso": 20,
       "criterios": [
-        { "nombre": "CE5.a: Se han descrito los principios de funcionamiento de las redes locales.", "peso": 14 },
-        { "nombre": "CE5.b: Se han identificado los distintos tipos de redes y sus estructuras alternativas.", "peso": 14 },
-        { "nombre": "CE5.c: Se han reconocido los criterios de la red local identificándolos con su función.", "peso": 14 },
-        { "nombre": "CE5.d: Se han descrito los medios de transmisión.", "peso": 14 },
-        { "nombre": "CE5.e: Se ha interpretado el mapa físico de la red local.", "peso": 14 },
-        { "nombre": "CE5.f: Se ha representado el mapa físico de la red local.", "peso": 15 },
-        { "nombre": "CE5.g: Se han utilizado aplicaciones informáticas para representar el mapa físico de la red local.", "peso": 15 }
+        { "nombre": "RA5.a: Se han descrito los principios de funcionamiento de las redes locales.", "peso": 14 },
+        { "nombre": "RA5.b: Se han identificado los distintos tipos de redes y sus estructuras alternativas.", "peso": 14 },
+        { "nombre": "RA5.c: Se han reconocido los criterios de la red local identificándolos con su función.", "peso": 14 },
+        { "nombre": "RA5.d: Se han descrito los medios de transmisión.", "peso": 14 },
+        { "nombre": "RA5.e: Se ha interpretado el mapa físico de la red local.", "peso": 14 },
+        { "nombre": "RA5.f: Se ha representado el mapa físico de la red local.", "peso": 15 },
+        { "nombre": "RA5.g: Se han utilizado aplicaciones informáticas para representar el mapa físico de la red local.", "peso": 15 }
       ]
     },
     {
       "nombre": "RA6: Cumple las normas de prevención de riesgos laborales y de protección ambiental, identificando los riesgos asociados, las medidas y sistemas para prevenirlos.",
       "peso": 10,
       "criterios": [
-        { "nombre": "CE6.a: Se han identificado los riesgos y el nivel de peligrosidad que suponen la manipulación de los materiales, herramientas, útiles, máquinas y medios de transporte.", "peso": 13 },
-        { "nombre": "CE6.b: Se han operado las máquinas respetando las normas de seguridad.", "peso": 13 },
-        { "nombre": "CE6.c: Se han identificado las causas más frecuentes de accidentes en la manipulación de materiales, herramientas, máquinas de corte y conformado, entre otras.", "peso": 12 },
-        { "nombre": "CE6.d: Se han descrito los criterios de seguridad (protecciones, alarmas, pasos de emergencia, entre otros) de las máquinas y los sistemas de protección individual (calzado, protección ocular, indumentaria, entre otros) que se deben emplear en las operaciones de montaje y mantenimiento.", "peso": 12 },
-        { "nombre": "CE6.e: Se ha relacionado la manipulación de materiales, herramientas y máquinas con las medidas de seguridad y protección personal requeridos.", "peso": 12 },
-        { "nombre": "CE6.f: Se han identificado las posibles fuentes de contaminación del entorno ambiental.", "peso": 12 },
-        { "nombre": "CE6.g: Se han clasificado los residuos generados para su retirada selectiva.", "peso": 13 },
-        { "nombre": "CE6.h: Se ha valorado el orden y la limpieza de instalaciones y sistemas como primer factor de prevención de riesgos.", "peso": 13 }
+        { "nombre": "RA6.a: Se han identificado los riesgos y el nivel de peligrosidad que suponen la manipulación de los materiales, herramientas, útiles, máquinas y medios de transporte.", "peso": 13 },
+        { "nombre": "RA6.b: Se han operado las máquinas respetando las normas de seguridad.", "peso": 13 },
+        { "nombre": "RA6.c: Se han identificado las causas más frecuentes de accidentes en la manipulación de materiales, herramientas, máquinas de corte y conformado, entre otras.", "peso": 12 },
+        { "nombre": "RA6.d: Se han descrito los criterios de seguridad (protecciones, alarmas, pasos de emergencia, entre otros) de las máquinas y los sistemas de protección individual (calzado, protección ocular, indumentaria, entre otros) que se deben emplear en las operaciones de montaje y mantenimiento.", "peso": 12 },
+        { "nombre": "RA6.e: Se ha relacionado la manipulación de materiales, herramientas y máquinas con las medidas de seguridad y protección personal requeridos.", "peso": 12 },
+        { "nombre": "RA6.f: Se han identificado las posibles fuentes de contaminación del entorno ambiental.", "peso": 12 },
+        { "nombre": "RA6.g: Se han clasificado los residuos generados para su retirada selectiva.", "peso": 13 },
+        { "nombre": "RA6.h: Se ha valorado el orden y la limpieza de instalaciones y sistemas como primer factor de prevención de riesgos.", "peso": 13 }
       ]
     }
   ]

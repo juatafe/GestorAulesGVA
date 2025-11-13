@@ -1,0 +1,30 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Entorns virtuals ---
+venv/
+.env/
+ENV/
+.venv/
+
+# --- Fitxers temporals i logs ---
+*.log
+*.bak
+*.tmp
+*.swp
+*.swo
+*.DS_Store
+Thumbs.db
+
+# --- Compilació / empaquetat ---
+#build/
+#dist/
+*.spec
+*.egg-info/
+
+# --- Fitxers del sistema ---
+*.~lock*
+*.kate-swp
+*~

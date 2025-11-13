@@ -1,0 +1,19 @@
+[Desktop Entry]
+Version=2.0.0
+Type=Application
+Name=Gestor Aules GVA
+GenericName=Gestor per a Aules GVA
+Comment=Eina per importar escales i crear resultats d'aprenentatge a Aules
+Keywords=education;aules;moodle;grades;outcomes
+Exec=gestor-aules-gva
+Icon=gestor-aules
+Categories=Education;Development;
+Terminal=false
+StartupNotify=true
+StartupWMClass=GestorAulesGVA
+MimeType=
+X-GNOME-FullName=Gestor Aules GVA
+X-GNOME-Bugzilla-Bugzilla=GNOME
+X-GNOME-Bugzilla-Product=GestorAulesGVA
+X-GNOME-Bugzilla-Component=general
+X-GNOME-Bugzilla-Version=2.0.0
