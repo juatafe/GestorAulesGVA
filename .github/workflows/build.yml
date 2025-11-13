@@ -24,21 +24,10 @@ jobs:
       run: |
         pip install -r requirements.txt
         pip install pyinstaller
-        # SOLO linuxdeploy, elimina appimage-builder
-        wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
-        chmod +x linuxdeploy-x86_64.AppImage
-    
-    - name: Build executable
+
+    - name: Build with your script
       run: |
-        pyinstaller --name GestorAulesGVA \
-          --onedir \
-          --add-data "icons:icons" \
-          --add-data "data:data" \
-          --icon "icons/gestor-aules.png" \
-          --clean \
-          --noconfirm \
-          --console \
-          gestor_aules_gva/__main__.py
+        python build.py linux
 
     - name: Create AppImage
       run: |
@@ -46,18 +35,14 @@ jobs:
         wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
         chmod +x linuxdeploy-x86_64.AppImage
         
-        # Crea l'AppDir manualment
+        # Crea l'AppDir
         mkdir -p AppDir/usr/bin
         mkdir -p AppDir/usr/share/applications
         mkdir -p AppDir/usr/share/icons/hicolor/256x256/apps
         
-        # Copia l'executable i les dades
-        cp -r dist/GestorAulesGVA/* AppDir/usr/bin/
-        
-        # Copia la icona a la ubicació CORRECTA
-        cp icons/gestor-aules.png AppDir/usr/share/icons/hicolor/256x256/apps/gestor-aules.png
-        
-        # Copia el .desktop
+        # Copia l'executable de la teva compilació
+        cp dist/linux/GestorAulesGVA AppDir/usr/bin/
+        cp icons/gestor-aules.png AppDir/usr/share/icons/hicolor/256x256/apps/
         cp GestorAulesGVA.desktop AppDir/usr/share/applications/
         
         # Crea l'AppImage
@@ -67,21 +52,14 @@ jobs:
           --desktop-file AppDir/usr/share/applications/GestorAulesGVA.desktop \
           --output appimage
 
-          
     - name: Upload Linux artifact
       uses: actions/upload-artifact@v4
       with:
         name: GestorAulesGVA-linux
-        path: GestorAulesGVA-*-x86_64.AppImage
-
-    - name: Prepare release files
-      run: |
-        mkdir -p release_files
-        # Per Linux: Copia l'AppImage, no l'executable directe
-        cp GestorAulesGVA-*-x86_64.AppImage release_files/GestorAulesGVA.AppImage
-        cp artifacts/GestorAulesGVA-windows/GestorAulesGVA.exe release_files/
-        cp artifacts/GestorAulesGVA-macos/GestorAulesGVA release_files/
-
+        path: |
+          *.AppImage
+          GestorAulesGVA-*.AppImage
+        if-no-files-found: warn
 
   build-windows:
     timeout-minutes: 45
