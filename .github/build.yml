@@ -1,0 +1,92 @@
+name: Build Multiplatform
+
+on:
+  push:
+    tags: ['v*']
+  release:
+    types: [created]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            name: linux
+            icon: icons/gestor-aules.png
+          - os: windows-latest
+            name: windows
+            icon: icons/gestor-aules.ico
+            args: --console
+          - os: macos-latest
+            name: macos
+            icon: icons/gestor-aules.icns
+            args: --windowed
+
+    runs-on: ${{ matrix.os }}
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+        pip install pyinstaller
+
+    - name: Build executable
+      run: |
+        pyinstaller --name GestorAulesGVA \
+          --onefile \
+          --add-data "icons:icons" \
+          --add-data "data:data" \
+          --icon "${{ matrix.icon }}" \
+          --clean \
+          --noconfirm \
+          ${{ matrix.args }} \
+          gestor_aules_gva/__main__.py
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: GestorAulesGVA-${{ matrix.name }}
+        path: dist/GestorAulesGVA*
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    
+    steps:
+    - name: Download all artifacts
+      uses: actions/download-artifact@v3
+      with:
+        path: ./artifacts
+
+    - name: List artifacts
+      run: ls -R artifacts/
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          artifacts/GestorAulesGVA-linux/GestorAulesGVA
+          artifacts/GestorAulesGVA-windows/GestorAulesGVA.exe
+          artifacts/GestorAulesGVA-macos/GestorAulesGVA
+        body: |
+          ## 🎉 Gestor Aules GVA - Executables Multiplataforma
+          
+          ### 📦 Descàrregues
+          - **🐧 Linux**: `GestorAulesGVA`
+          - **🪟 Windows**: `GestorAulesGVA.exe`
+          - **🍎 macOS**: `GestorAulesGVA`
+          
+          ### 🚀 Ús
+          1. Descarrega l'executable pel teu sistema
+          2. Fes-lo executable (Linux/macOS): `chmod +x GestorAulesGVA`
+          3. Executa i connecta't a Aules
