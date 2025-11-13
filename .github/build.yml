@@ -50,9 +50,11 @@ jobs:
           --noconfirm \
           ${{ matrix.args }} \
           gestor_aules_gva/__main__.py
+      env:
+        PYTHONIOENCODING: utf-8  # ← AQUESTA ÉS LA CLAU!
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4  # ← ACTUALITZAT
       with:
         name: GestorAulesGVA-${{ matrix.name }}
         path: dist/GestorAulesGVA*
@@ -64,7 +66,7 @@ jobs:
     
     steps:
     - name: Download all artifacts
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4  # ← ACTUALITZAT
       with:
         path: ./artifacts
 
@@ -83,7 +85,7 @@ jobs:
           
           ### 📦 Descàrregues
           - **🐧 Linux**: `GestorAulesGVA`
-          - **🪟 Windows**: `GestorAulesGVA.exe`
+          - **🪟 Windows**: `GestorAulesGVA.exe` 
           - **🍎 macOS**: `GestorAulesGVA`
           
           ### 🚀 Ús
