@@ -48,7 +48,24 @@ jobs:
 
     - name: Create AppImage
       run: |
-        appimage-builder --recipe AppImageBuilder.yml
+        # Descarrega linuxdeploy
+        wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
+        chmod +x linuxdeploy-x86_64.AppImage
+        
+        # Crea l'AppDir manualment
+        mkdir -p AppDir/usr/bin
+        mkdir -p AppDir/usr/share/icons
+        mkdir -p AppDir/usr/share/applications
+        
+        # Copia l'executable i les dades
+        cp -r dist/GestorAulesGVA/* AppDir/usr/bin/
+        cp icons/gestor-aules.png AppDir/usr/share/icons/
+        cp GestorAulesGVA.desktop AppDir/usr/share/applications/
+        
+        # Crea l'AppImage
+        ./linuxdeploy-x86_64.AppImage \
+          --appdir AppDir \
+          --output appimage
 
     - name: Upload Linux artifact
       uses: actions/upload-artifact@v4
