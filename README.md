@@ -1,8 +1,41 @@
-# 🧩 Gestor Aules GVA – Escales i Outcomes
+# Gestor Aules GVA – Escales i Outcomes
 
 ![Logo](icons/gestor-aules.png)
 
-Eina gràfica (Tkinter + Requests + BeautifulSoup) per automatitzar la importació d’escales i la creació de Resultats/Outcomes dins dels cursos Moodle d’Aules GVA.
+En aquest repositori trobaràs el Gestor Aules GVA, una eina gràfica que facilita la importació massiva de resultats d’aprenentatge i criteris als cursos Moodle d’Aules GVA —o a qualsevol altra plataforma basada en Moodle.A Aules GVA, els outcomes són la manera d’avaluar competències específiques o resultats d’aprenentatge (RA). Com que el sistema de competències nadiu de Moodle és un altre món i els administradors el tenen desactivat, fem servir els "resultats" (outcomes) amb este propòsit.
+
+El plantejament és senzill: convertim els resultats d’Aules en criteris específics i els fiquem dins de categories que representen les Competències Específiques (CE) o els Resultats d’Aprenentatge (RA). D’esta manera, podem avaluar igual de bé tant per competències específiques (ESO/BAT) com per RA (FP).
+
+## 📚 Com funciona??
+
+Has de tindre a mà la web del Moodle/Aules, l’ID del curs, el teu usuari i contrasenya, i els teus RA o CE en un fitxer JSON.
+![Id curs](imatges/id_curs.png)
+![Login](imatges/accedir.png)
+ L’eina els importarà a Aules automàticament, crearà les categories que calen i assignarà els criteris amb els seus pesos corresponents.
+
+
+També necessites una escala d’avaluació. Aquesta cal crear-la prèviament de manera manual, perquè per a crear escales a nivell global s’ha de ser administrador (i, almenys a mi, Aules no m’ha deixat fer-ho automàticament). Si utilitzes un Moodle diferent, l’eina també pot importar escales des de fitxers CSV sempre que tingues permisos d’administració.
+
+![Escales](imatges/escales.png)
+![afigura escala](imatges/afigEscalanova.png)
+![crea escala](imatges/esalanova.png)
+
+> Recorda que les escales són globals per a tot el Moodle/Aules —excepte les que crees manualment dins d’un curs, que només s’apliquen allí. Per això és important identificar amb exactitud quina escala vols utilitzar abans d’importar els outcomes. 
+
+
+
+L’app comprova si els RA o CE ja existeixen i no els duplica. També revisa que els pesos dels criteris dins de cada RA sumen 100%, i crea automàticament les categories per a cada resultat. Tingues present que el que importes realment són els criteris dins de cada RA o CE, no els RA o CE en si mateixos.
+![llibre abans](imatges/llibre.png)
+![connexió](imatges/connexion.png)
+![importa](imatges/importaroutcomes.png)
+
+Una volta importat tot, al llibre de qualificacions veuràs les categories, i conforme vages creant tasques i assignant-los criteris, aquests apareixeran automàticament al llibre i s’utilitzaran per a calcular les notes segons el seu pes i escala. Això et permet avaluar per competències específiques o per RA d’una manera molt més coherent i senzilla.
+
+![categories](imatges/categories.png)
+![tasca](imatges/tasca.png)
+![tasquesras](imatges/tascquesras.png)
+
+## 🚩 Característiques Principals
 
 Permet:
 - Fer login docent de manera segura.
@@ -14,12 +47,16 @@ Permet:
 
 ## 🎯 Avaluació per competències i RA (Outcomes)
 
-Volem permetre avaluar per competències específiques o per resultats d’aprenentatge (RA). En Aules aquests apareixen com a Resultats/Resultados/Outcomes. El criteri ponderat el representem com un Resultat d’Aules i l’ubiquem dins d’una categoria d’Aules que correspondrà a la competència específica o al resultat d’aprenentatge, segons si treballem a ESO/BAT o a FP.
+Volem permetre avaluar per competències específiques o per resultats d’aprenentatge (RA). En Aules aquests apareixen com a `Resultats/Resultados/Outcomes`. Cada criteri ponderat es representa com un resultat d’Aules, i es col·loca dins d’una categoria que correspon a la competència específica o al RA, segons treballem a ESO/BAT o FP.
 
 - Al llibre de qualificacions veuràs les categories (CE/RA/Competències) com a carpetes.
 - En cada tasca/activitat podràs afegir el criteri a valorar associant l’outcome corresponent.
-- Per defecte s’usa una escala 0–10, però es pot utilitzar qualsevol escala de Moodle/Aules.
+- La tasca pot tenir la seua pròpia nota, escala o rúbrica, però l’outcome s’utilitzarà per al càlcul global segons el seu pes i escala de forma independent. 
+- Per defecte et demana una escala 0–10, però es pot utilitzar qualsevol escala de Moodle/Aules.
 
+> Un bon plugin per a Moodle seria poder assignar directament els criteris d’una rúbrica als outcomes, però això ja és una altra guerra i mereixeria una eina pròpia.
+>  De moment, la rúbrica i els criteris poden conviure perfectament en una mateixa tasca: tu valores amb la rúbrica i, a banda, assignes manualment la nota del criteri (outcome). Això permet que l’alumne tinga una nota per a la tasca i una altra per al criteri, cadascuna amb el seu sentit.
+> La nota que deuria comptar al llibre de qualificacions serà la del criteri, ponderada segons el seu pes, i no la de la tasca. Això és així perquè no es poden ponderar instruments d’avaluació, ja que aniria en contra del que marca la LOMLOE sobre ponderació dels criteris.
 ---
 
 ## 📦 Formats d’importació i requisits
@@ -101,21 +138,6 @@ Exemple amb “escala” al JSON:
 - Quan crees una tasca i li assignes un resultat (criteri), aquest també apareixerà al llibre i s’usarà en el càlcul segons el seu pes i escala.
 - Recomanat: utilitzar “Mitjana ponderada de les qualificacions” com a agregació en categories per aprofitar els pesos.
 
----
-
-## 🚀 Ús ràpid
-
-- Importar escales (CSV):
-```bash
-python3 gestor_aules_gva.py  # i tria “Importar escales”
-```
-
-- Importar outcomes (JSON) indicant l’escala:
-```bash
-python3 gestor_aules_gva.py  # tria “Importar outcomes”
-# o CLI (si està disponible al teu script)
-python3 crear_outcomes_aules.py --base-url ... --username ... --password ... --course-id ... --escala "Notes (Insuficient, Suficient, Bé, Notable, Excel·lent)"
-```
 
 ---
 
@@ -124,3 +146,5 @@ python3 crear_outcomes_aules.py --base-url ... --username ... --password ... --c
 - Verifica que els pesos dels criteris de cada RA sumen 100.
 - Revisa que el nom de l’escala és exactament igual al d’Aules (accents, majúscules/minúscules).
 - Si l’import falla per a alguns criteris, comprova l’escala i el format del JSON/CSV.
+
+---
