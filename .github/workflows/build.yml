@@ -133,23 +133,25 @@ jobs:
         path: ./artifacts
 
     - name: List artifacts
-      run: ls -R artifacts/
+      run: |
+        echo "=== Estructura completa ==="
+        find artifacts/ -type f 2>/dev/null || echo "No s'han trobat arxius"
+        echo "=== Contingut de carpetes ==="
+        ls -la artifacts/ */ 2>/dev/null || echo "No hi ha subcarpetes"
 
     - name: Create Release
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          artifacts/GestorAulesGVA-linux/GestorAulesGVA
-          artifacts/GestorAulesGVA-windows/GestorAulesGVA.exe
-          artifacts/GestorAulesGVA-macos/GestorAulesGVA
+          artifacts/GestorAulesGVA-linux/*
+          artifacts/GestorAulesGVA-windows/*  
+          artifacts/GestorAulesGVA-macos/*
         body: |
           ## 🎉 Gestor Aules GVA - Executables Multiplataforma
-          
           ### 📦 Descàrregues
           - **🐧 Linux**: `GestorAulesGVA`
           - **🪟 Windows**: `GestorAulesGVA.exe` 
           - **🍎 macOS**: `GestorAulesGVA`
-          
           ### 🚀 Ús
           1. Descarrega l'executable pel teu sistema
           2. Fes-lo executable (Linux/macOS): `chmod +x GestorAulesGVA`

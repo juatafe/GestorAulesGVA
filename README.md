@@ -51,12 +51,12 @@ Exemple:
       "nombre": "RA1: Selecciona los criterios que configuran las redes para la transmisión de voz y datos, describiendo sus principales características y funcionalidad.",
       "peso": 15,
       "criterios": [
-        { "nombre": "CE1.a: ...", "peso": 17 },
-        { "nombre": "CE1.b: ...", "peso": 17 },
-        { "nombre": "CE1.c: ...", "peso": 17 },
-        { "nombre": "CE1.d: ...", "peso": 17 },
-        { "nombre": "CE1.e: ...", "peso": 16 },
-        { "nombre": "CE1.f: ...", "peso": 16 }
+        { "nombre": "RA1.a: ...", "peso": 17 },
+        { "nombre": "RA1.b: ...", "peso": 17 },
+        { "nombre": "RA1.c: ...", "peso": 17 },
+        { "nombre": "RA1.d: ...", "peso": 17 },
+        { "nombre": "RA1.e: ...", "peso": 16 },
+        { "nombre": "RA1.f: ...", "peso": 16 }
       ]
     }
   ]
