@@ -143,11 +143,17 @@ jobs:
         file artifacts/GestorAulesGVA-windows/GestorAulesGVA.exe
         file artifacts/GestorAulesGVA-macos/GestorAulesGVA
 
+    - name: Prepare release files
+      run: |
+        mkdir -p release_files
+        cp artifacts/GestorAulesGVA-linux/GestorAulesGVA release_files/
+        cp artifacts/GestorAulesGVA-windows/GestorAulesGVA.exe release_files/
+        cp artifacts/GestorAulesGVA-macos/GestorAulesGVA release_files/
+
     - name: Create Release
-      uses: ncipollo/release-action@v1
+      uses: softprops/action-gh-release@v1
       with:
-        tag: ${{ github.ref_name }}
-        artifacts: "artifacts/**/*"
+        files: release_files/*
         body: |
           ## 🎉 Gestor Aules GVA - Executables Multiplataforma
           ### 📦 Descàrregues
