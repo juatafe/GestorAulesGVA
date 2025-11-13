@@ -134,18 +134,20 @@ jobs:
 
     - name: List artifacts
       run: |
-        echo "=== Estructura completa ==="
-        find artifacts/ -type f 2>/dev/null || echo "No s'han trobat arxius"
-        echo "=== Contingut de carpetes ==="
-        ls -la artifacts/ */ 2>/dev/null || echo "No hi ha subcarpetes"
+        echo "=== Mida dels arxius ==="
+        ls -la artifacts/GestorAulesGVA-linux/
+        ls -la artifacts/GestorAulesGVA-windows/
+        ls -la artifacts/GestorAulesGVA-macos/
+        echo "=== Checksum ==="
+        file artifacts/GestorAulesGVA-linux/GestorAulesGVA
+        file artifacts/GestorAulesGVA-windows/GestorAulesGVA.exe
+        file artifacts/GestorAulesGVA-macos/GestorAulesGVA
 
     - name: Create Release
-      uses: softprops/action-gh-release@v1
+      uses: ncipollo/release-action@v1
       with:
-        files: |
-          artifacts/GestorAulesGVA-linux/*
-          artifacts/GestorAulesGVA-windows/*  
-          artifacts/GestorAulesGVA-macos/*
+        tag: ${{ github.ref_name }}
+        artifacts: "artifacts/**/*"
         body: |
           ## 🎉 Gestor Aules GVA - Executables Multiplataforma
           ### 📦 Descàrregues
