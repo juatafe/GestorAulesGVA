@@ -48,19 +48,26 @@ jobs:
         
         # Crea l'AppDir manualment
         mkdir -p AppDir/usr/bin
-        mkdir -p AppDir/usr/share/icons
         mkdir -p AppDir/usr/share/applications
+        mkdir -p AppDir/usr/share/icons/hicolor/256x256/apps
         
         # Copia l'executable i les dades
         cp -r dist/GestorAulesGVA/* AppDir/usr/bin/
-        cp icons/gestor-aules.png AppDir/usr/share/icons/
+        
+        # Copia la icona a la ubicació CORRECTA
+        cp icons/gestor-aules.png AppDir/usr/share/icons/hicolor/256x256/apps/gestor-aules.png
+        
+        # Copia el .desktop
         cp GestorAulesGVA.desktop AppDir/usr/share/applications/
         
         # Crea l'AppImage
         ./linuxdeploy-x86_64.AppImage \
           --appdir AppDir \
+          --icon-file AppDir/usr/share/icons/hicolor/256x256/apps/gestor-aules.png \
+          --desktop-file AppDir/usr/share/applications/GestorAulesGVA.desktop \
           --output appimage
 
+          
     - name: Upload Linux artifact
       uses: actions/upload-artifact@v4
       with:
