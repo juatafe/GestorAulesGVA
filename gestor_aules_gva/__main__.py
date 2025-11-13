@@ -34,12 +34,18 @@ def carregar_icono(root):
 def main():
     """Inicia la interfície principal del Gestor Aules GVA."""
     try:
-        from .gui import AulesManager
+        # CANVIA AQUESTA LINIA:
+        from gestor_aules_gva.gui import AulesManager  # ← ABSOLUT, NO RELATIU
         app = AulesManager()
-    except ImportError:
-        # Si falla la importació relativa, intenta absoluta
-        from gui import AulesManager
-        app = AulesManager()
+    except ImportError as e:
+        print(f"❌ Error d'importació: {e}")
+        # Fallback alternatiu
+        try:
+            from gui import AulesManager
+            app = AulesManager()
+        except ImportError:
+            print("❌ No s'ha pogut importar AulesManager des de cap ruta")
+            raise
 
 if __name__ == "__main__":
     main()
