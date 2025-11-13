@@ -52,6 +52,10 @@ def compilar_para_sistema(sistema):
         "--onefile",
         "--add-data", "icons:icons",
         "--add-data", "data:data",
+        "--add-data", "gestor_aules_gva:gestor_aules_gva",
+        "--hidden-import", "gestor_aules_gva.gui",        # ← CORREGIT
+        "--hidden-import", "gestor_aules_gva.aules_api",  # ← AFEGIT
+        "--collect-all", "gestor_aules_gva",
         "--icon", icono,
         "--clean",
         "--noconfirm"
