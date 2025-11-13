@@ -24,15 +24,9 @@ jobs:
       run: |
         pip install -r requirements.txt
         pip install pyinstaller
-        wget https://github.com/AppImageCrafters/appimage-builder/releases/download/v1.1.0/appimage-builder-1.1.0-x86_64.AppImage
-        chmod +x appimage-builder-1.1.0-x86_64.AppImage
-        sudo mv appimage-builder-1.1.0-x86_64.AppImage /usr/local/bin/appimage-builder
-        sudo apt-get update
-        sudo apt-get install -y fuse libfuse2
-        sudo modprobe fuse
-        sudo groupadd fuse
-        user="$(whoami)"
-        sudo usermod -a -G fuse $user
+        # SOLO linuxdeploy, elimina appimage-builder
+        wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
+        chmod +x linuxdeploy-x86_64.AppImage
     
     - name: Build executable
       run: |
@@ -72,6 +66,16 @@ jobs:
       with:
         name: GestorAulesGVA-linux
         path: GestorAulesGVA-*-x86_64.AppImage
+
+    - name: Prepare release files
+      run: |
+        mkdir -p release_files
+        # Per Linux: Copia l'AppImage, no l'executable directe
+        cp GestorAulesGVA-*-x86_64.AppImage release_files/GestorAulesGVA.AppImage
+        cp artifacts/GestorAulesGVA-windows/GestorAulesGVA.exe release_files/
+        cp artifacts/GestorAulesGVA-macos/GestorAulesGVA release_files/
+
+
   build-windows:
     timeout-minutes: 45
     runs-on: windows-latest
@@ -184,10 +188,10 @@ jobs:
         body: |
           ## 🎉 Gestor Aules GVA - Executables Multiplataforma
           ### 📦 Descàrregues
-          - **🐧 Linux**: `GestorAulesGVA`
+          - **🐧 Linux**: `GestorAulesGVA.AppImage` (AppImage universal)
           - **🪟 Windows**: `GestorAulesGVA.exe` 
           - **🍎 macOS**: `GestorAulesGVA`
-          ### 🚀 Ús
-          1. Descarrega l'executable pel teu sistema
-          2. Fes-lo executable (Linux/macOS): `chmod +x GestorAulesGVA`
-          3. Executa i connecta't a Aules
+          ### 🚀 Ús Linux
+          1. Descarrega `GestorAulesGVA.AppImage`
+          2. Fes-lo executable: `chmod +x GestorAulesGVA.AppImage`
+          3. Executa: `./GestorAulesGVA.AppImage`
