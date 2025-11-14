@@ -1,4 +1,6 @@
 # gestor_aules_gva/gui.py
+import os
+import sys
 import tkinter as tk
 from tkinter import filedialog, messagebox, PhotoImage, ttk
 from tkinter.scrolledtext import ScrolledText
@@ -33,46 +35,49 @@ class AulesManager:
         self.root.mainloop()
 
     def _carregar_icono(self):
-        """Intenta carregar l'icono des de diverses rutes possibles"""
+        """Intenta carregar l'icono des de diverses rutes possibles - COMPATIBLE AMB PyInstaller"""
         import os
+        import sys
         
-        # En Linux utilitzem PNG, en Windows ICO
+        # Determina si estem en un executable PyInstaller
+        if getattr(sys, 'frozen', False):
+            base_path = sys._MEIPASS
+            print(f"📁 Executable mode. Base path: {base_path}")
+        else:
+            base_path = os.path.dirname(os.path.abspath(__file__))
+            print(f"📁 Dev mode. Base path: {base_path}")
+        
         rutes_prova = [
-            # Primer intentem amb PNG (Linux)
+            # Rutes compatibles amb PyInstaller
+            os.path.join(base_path, "icons", "gestor-aules.png"),
+            os.path.join(base_path, "icons", "gestor-aules-256.png"),
+            os.path.join(base_path, "..", "icons", "gestor-aules.png"),
+            os.path.join(base_path, "..", "icons", "gestor-aules-256.png"),
+            # Rutes de desenvolupament
             "icons/gestor-aules.png",
-            "icons/gestor-aules-256.png", 
+            "icons/gestor-aules-256.png",
             "../icons/gestor-aules.png",
             "../icons/gestor-aules-256.png",
-            os.path.join(os.path.dirname(__file__), "..", "icons", "gestor-aules.png"),
-            os.path.join(os.path.dirname(__file__), "..", "icons", "gestor-aules-256.png"),
-            # Després amb ICO (Windows)
-            "icons/gestor-aules.ico",
-            "../icons/gestor-aules.ico",
-            os.path.join(os.path.dirname(__file__), "..", "icons", "gestor-aules.ico"),
         ]
         
         for ruta in rutes_prova:
+            ruta_absoluta = os.path.abspath(ruta)
+            print(f"🔍 Provant icono: {ruta_absoluta} - Existeix: {os.path.exists(ruta_absoluta)}")
             try:
-                if os.path.exists(ruta):
+                if os.path.exists(ruta_absoluta):
                     if ruta.lower().endswith('.png'):
-                        # Per a Linux: PNG amb PhotoImage
-                        img = tk.PhotoImage(file=ruta)
-                        self.root.tk.call('wm', 'iconphoto', self.root._w, img)
-                        print(f"✅ Icono PNG carregat des de: {ruta}")
+                        # Mètode universal per a PNG
+                        img = tk.PhotoImage(file=ruta_absoluta)
+                        self.root.iconphoto(True, img)  # True = per a totes les finestres
                         self.icon_img = img  # Guardar referència
-                        return True
-                    elif ruta.lower().endswith('.ico'):
-                        # Per a Windows: ICO amb iconbitmap
-                        self.root.iconbitmap(ruta)
-                        print(f"✅ Icono ICO carregat des de: {ruta}")
+                        print(f"✅ Icono PNG carregat des de: {ruta_absoluta}")
                         return True
             except Exception as e:
-                print(f"⚠️ Error carregant {ruta}: {e}")
+                print(f"⚠️ Error carregant {ruta_absoluta}: {e}")
                 continue
         
         print("❌ No s'ha pogut carregar cap icono")
-        return False
-    # ------------------------------------------------------------
+        return False   # ------------------------------------------------------------
     # UTILITATS
     # ------------------------------------------------------------
     def _netejar(self):
@@ -107,12 +112,36 @@ class AulesManager:
 
         # Logo — cal guardar la referència per evitar que Tkinter l'esborre
         try:
-            img = PhotoImage(file="icons/gestor-aules-256.png")
-            # Redueix la imatge a la meitat (prova 2, 3, 4 segons et convinga)
-            img = img.subsample(2, 2)
-            self.logo_img = img  # guarda referència per evitar GC
-            logo_label = tk.Label(frame, image=self.logo_img, bg="#ffffff")
-            logo_label.grid(row=0, column=0, columnspan=2, pady=(0, 10))
+            # Utilitza la mateixa lògica que _carregar_icono
+            if getattr(sys, 'frozen', False):
+                base_path = sys._MEIPASS
+            else:
+                base_path = os.path.dirname(os.path.abspath(__file__))
+            
+            logo_rutes = [
+                os.path.join(base_path, "icons", "gestor-aules-256.png"),
+                os.path.join(base_path, "..", "icons", "gestor-aules-256.png"),
+                "icons/gestor-aules-256.png",
+                "../icons/gestor-aules-256.png",
+            ]
+            
+            logo_path = None
+            for ruta in logo_rutes:
+                if os.path.exists(ruta):
+                    logo_path = ruta
+                    break
+            
+            if logo_path:
+                img = PhotoImage(file=logo_path)
+                # Redueix la imatge a la meitat
+                img = img.subsample(2, 2)
+                self.logo_img = img  # guarda referència per evitar GC
+                logo_label = tk.Label(frame, image=self.logo_img, bg="#ffffff")
+                logo_label.grid(row=0, column=0, columnspan=2, pady=(0, 10))
+                print(f"✅ Logo carregat des de: {logo_path}")
+            else:
+                raise FileNotFoundError("No s'ha trobat el logo")
+                
         except Exception as e:
             print(f"[⚠️ Logo no carregat: {e}]")
             tk.Label(
