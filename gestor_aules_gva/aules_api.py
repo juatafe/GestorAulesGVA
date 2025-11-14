@@ -1,4 +1,5 @@
 # gestor_aules_gva/aules_api.py
+from tkinter import messagebox
 import requests, re, csv, json, time
 from bs4 import BeautifulSoup
 import tkinter as tk
@@ -106,6 +107,44 @@ def fix_text(s):
     return unicodedata.normalize("NFKC", s)
 
 
+def validar_pesos_ra(ra_data, output):
+    """Valida que els pesos dels criteris sumin 100%"""
+    errors = []
+    for ra in ra_data.get("resultados", []):
+        ra_nom = ra["nombre"]
+        criterios = ra.get("criterios", [])
+        suma_pesos = sum(c.get("peso", 0) for c in criterios)
+        
+        if suma_pesos != 100:
+            errors.append(f"❌ RA '{ra_nom}': Els pesos sumen {suma_pesos}% (haurien de sumar 100%)")
+    
+    for error in errors:
+        output.insert(tk.END, f"{error}\n", "error")
+    
+    return len(errors) == 0
+
+def obtenir_outcomes_existents(session, cookie, base_url, course_id, output=None):
+    """Retorna els shortnames dels outcomes existents"""
+    outcomes = set()
+    try:
+        url = f"{base_url}/grade/edit/outcome/index.php?id={course_id}"
+        r = session.get(url, cookies=cookie)
+        soup = BeautifulSoup(r.text, "html.parser")
+        
+        for fila in soup.select("table.generaltable tr"):
+            celdas = fila.find_all("td")
+            if len(celdas) > 1:
+                shortname = celdas[0].get_text(strip=True)
+                if shortname:
+                    outcomes.add(shortname.lower())
+        
+        if output:
+            output.insert(tk.END, f"📊 Outcomes existents: {len(outcomes)}\n")
+    except Exception as e:
+        if output:
+            output.insert(tk.END, f"⚠️ Error obtenint outcomes: {e}\n")
+    
+    return outcomes
 # -------------------------------------------------------------
 # CREAR CATEGORIA RA
 # -------------------------------------------------------------
@@ -178,7 +217,6 @@ def crear_outcome(
 
     except Exception as e:
         output.insert(tk.END, f"❌ Error CE {shortname}: {e}\n", "error")
-
 
 # -------------------------------------------------------------
 # OBTINDRE CATEGORIES RA EXISTENTS AL CURS

@@ -425,10 +425,179 @@ class AulesManager:
         importar_escalas_des_de_csv(self.session, self.cookie, self.base_url, self.sesskey, self.course_id, fitxer, self.output)
         self.progress.stop()
 
+    # def _executar_outcomes(self):
+    #     import json
+    #     import threading
+    #     from .aules_api import obtenir_escalas_existents, obtenir_categories_existents, crear_categoria_ra, crear_outcome
+
+    #     fitxer_json = self.entry_json.get().strip()
+    #     escala_nom = self.entry_escala.get().strip()
+
+    #     if not fitxer_json:
+    #         messagebox.showwarning("Atenció", "Selecciona un fitxer JSON.")
+    #         return
+
+    #     # Carregar JSON i comptar outcomes CE
+    #     try:
+    #         with open(fitxer_json, encoding="utf-8") as f:
+    #             data = json.load(f)
+    #         total = sum(len(ra["criterios"]) for ra in data.get("resultados", []))
+    #     except Exception as e:
+    #         messagebox.showerror("Error", f"Error llegint JSON: {e}")
+    #         return
+
+    #     if total == 0:
+    #         messagebox.showwarning("Atenció", "El JSON no conté criteris CE.")
+    #         return
+
+    #     # Netejar log
+    #     self.output.delete("1.0", tk.END)
+    #     self.output.insert(tk.END, f"📁 Fitxer: {fitxer_json}\n")
+    #     self.output.insert(tk.END, f"🔢 Total d'outcomes CE: {total}\n\n")
+    #     self.output.update_idletasks()
+
+    #     # Configurar barra real
+    #     self.progress["value"] = 0
+    #     self.progress["maximum"] = total
+
+    #     def progress_callback():
+    #         """Incrementa la barra 1 pas."""
+    #         self.progress["value"] += 1
+    #         self.progress.update_idletasks()
+
+    #     def worker():
+    #         try:
+    #             # Obtenir escales existents
+    #             escalas = obtenir_escalas_existents(self.session, self.cookie, self.base_url, self.course_id, self.output)
+    #             if not escalas:
+    #                 self.output.insert(tk.END, "❌ No s'han pogut obtenir les escales.\n", "error")
+    #                 return
+
+    #             # Trobar l'escala especificada
+    #             escala_id = None
+    #             for nom, eid in escalas.items():
+    #                 if escala_nom.lower() in nom.lower():
+    #                     escala_id = eid
+    #                     self.output.insert(tk.END, f"✅ Escala trobada: {nom} (ID {eid})\n")
+    #                     break
+                
+    #             if not escala_id:
+    #                 self.output.insert(tk.END, f"❌ No s'ha trobat cap escala amb el nom '{escala_nom}'.\n", "error")
+    #                 return
+
+    #             # Obtenir categories existents
+    #             categories_existents = obtenir_categories_existents(self.session, self.cookie, self.base_url, self.course_id, self.output)
+                
+    #             # Processar cada RA del JSON
+    #             for cat in data.get("resultados", []):
+    #                 ra_full = cat["nombre"].strip()
+                    
+    #                 # Verificar si la categoria existeix
+    #                 categoria_existeix = any(ra_full.lower() == c.lower() for c in categories_existents)
+                    
+    #                 if categoria_existeix:
+    #                     self.output.insert(tk.END, f"✓ Categoria '{ra_full}' ja existeix.\n")
+    #                 else:
+    #                     # Crear la categoria RA
+    #                     if crear_categoria_ra(self.session, self.cookie, self.base_url, self.sesskey, self.course_id, ra_full, self.output):
+    #                         categories_existents.add(ra_full)
+    #                     else:
+    #                         self.output.insert(tk.END, f"⚠️ Saltant outcomes per a '{ra_full}' per error en crear categoria\n", "warning")
+    #                         continue
+
+    #                     # Crear els outcomes (CE) d'aquest RA
+    #                     criteris = cat.get("criterios", [])
+
+    #                     for elem in criteris:
+    #                         nom = elem["nombre"]
+                            
+    #                         # ⚠️ COMPATIBILITAT COMPLETA: CE5.b, RA5.b, R5.b, CE5-b, RA5-b, etc.
+    #                         # Patterns acceptats:
+    #                         # - CE5.b, CE5-b, CE5b
+    #                         # - RA5.b, RA5-b, RA5b  
+    #                         # - R5.b, R5-b, R5b
+    #                         patterns = [
+    #                             r"(CE|RA|R)(\d+)[\.\-]?(\w+)",  # CE5.b, RA5-b, R5.b
+    #                             r"(CE|RA|R)(\d+)(\w+)"          # CE5b, RA5b, R5b
+    #                         ]
+                            
+    #                         match = None
+    #                         for pattern in patterns:
+    #                             match = re.match(pattern, nom.strip())
+    #                             if match:
+    #                                 break
+                            
+    #                         if not match:
+    #                             self.output.insert(tk.END, f"⚠️ Format de nom incorrecte: {nom}\n", "warning")
+    #                             continue
+                                
+    #                         # Processar el match
+    #                         if len(match.groups()) == 3:
+    #                             tipus, numero, lletra = match.groups()
+    #                         else:
+    #                             # Si el pattern no captura correctament, intentar extraure manualment
+    #                             tipus = re.search(r'(CE|RA|R)', nom)
+    #                             if tipus:
+    #                                 tipus = tipus.group(1)
+    #                                 # Extreure número i lletra
+    #                                 rest = nom[len(tipus):]
+    #                                 nums = re.search(r'(\d+)', rest)
+    #                                 lets = re.search(r'[\.\-]?([a-zA-Z])', rest)
+    #                                 if nums and lets:
+    #                                     numero, lletra = nums.group(1), lets.group(1)
+    #                                 else:
+    #                                     self.output.insert(tk.END, f"⚠️ No s'ha pogut extreure número/lletra de: {nom}\n", "warning")
+    #                                     continue
+    #                             else:
+    #                                 self.output.insert(tk.END, f"⚠️ Format desconegut: {nom}\n", "warning")
+    #                                 continue
+                            
+    #                         # Normalitzar a format RA (Resultat Aprenentatge)
+    #                         short = f"RA{numero}.{lletra.lower()}"
+                            
+    #                         # Extreure descripció completa
+    #                         if ":" in nom:
+    #                             desc = nom.split(":", 1)[-1].strip()
+    #                         else:
+    #                             # Si no hi ha dos punts, buscar després del patró
+    #                             desc_match = re.search(r'(CE|RA|R)\d+[\.\-]?\w+\s*[:-]?\s*(.+)', nom)
+    #                             desc = desc_match.group(2).strip() if desc_match else nom
+                            
+    #                         full = f"{short}: {desc}"
+                            
+    #                         # Debug info (opcional)
+    #                         self.output.insert(tk.END, f"   🔍 Processant: '{nom}' → '{short}'\n")
+                            
+    #                         # Crear outcome
+    #                         crear_outcome(
+    #                             session=self.session, 
+    #                             cookie=self.cookie, 
+    #                             base_url=self.base_url, 
+    #                             sesskey=self.sesskey, 
+    #                             course_id=self.course_id,
+    #                             shortname=short, 
+    #                             fullname=full, 
+    #                             scaleid=escala_id,
+    #                             output=self.output
+    #                         )
+                            
+    #                         # Incrementar barra de progrés
+    #                         progress_callback()
+
+    #             self.output.insert(tk.END, "\n✅ Procés completat correctament!\n", "success")
+                
+    #         except Exception as e:
+    #             self.output.insert(tk.END, f"❌ Error durant el procés: {e}\n", "error")
+
+    #     threading.Thread(target=worker, daemon=True).start()
     def _executar_outcomes(self):
         import json
         import threading
-        from .aules_api import obtenir_escalas_existents, obtenir_categories_existents, crear_categoria_ra, crear_outcome
+        from .aules_api import (
+            obtenir_escalas_existents, obtenir_categories_existents, 
+            crear_categoria_ra, crear_outcome, validar_pesos_ra, 
+            obtenir_outcomes_existents
+        )
 
         fitxer_json = self.entry_json.get().strip()
         escala_nom = self.entry_escala.get().strip()
@@ -437,7 +606,7 @@ class AulesManager:
             messagebox.showwarning("Atenció", "Selecciona un fitxer JSON.")
             return
 
-        # Carregar JSON i comptar outcomes CE
+        # Carregar JSON
         try:
             with open(fitxer_json, encoding="utf-8") as f:
                 data = json.load(f)
@@ -450,10 +619,19 @@ class AulesManager:
             messagebox.showwarning("Atenció", "El JSON no conté criteris CE.")
             return
 
-        # Netejar log
+        # ✅ NOVA VERIFICACIÓ: Validar pesos
         self.output.delete("1.0", tk.END)
         self.output.insert(tk.END, f"📁 Fitxer: {fitxer_json}\n")
         self.output.insert(tk.END, f"🔢 Total d'outcomes CE: {total}\n\n")
+        
+        # Verificar pesos
+        self.output.insert(tk.END, "🔍 Verificant pesos dels criteris...\n")
+        if not validar_pesos_ra(data, self.output):
+            self.output.insert(tk.END, "\n❌ No es pot continuar. Corregeix els pesos abans d'importar.\n", "error")
+            return
+        else:
+            self.output.insert(tk.END, "✅ Tots els pesos sumen 100% correctament.\n\n")
+        
         self.output.update_idletasks()
 
         # Configurar barra real
@@ -467,6 +645,9 @@ class AulesManager:
 
         def worker():
             try:
+                # ✅ NOVA VERIFICACIÓ: Obtenir outcomes existents
+                outcomes_existents = obtenir_outcomes_existents(self.session, self.cookie, self.base_url, self.course_id, self.output)
+                
                 # Obtenir escales existents
                 escalas = obtenir_escalas_existents(self.session, self.cookie, self.base_url, self.course_id, self.output)
                 if not escalas:
@@ -505,84 +686,96 @@ class AulesManager:
                             self.output.insert(tk.END, f"⚠️ Saltant outcomes per a '{ra_full}' per error en crear categoria\n", "warning")
                             continue
 
-                        # Crear els outcomes (CE) d'aquest RA
-                        criteris = cat.get("criterios", [])
+                    # Crear els outcomes (CE) d'aquest RA
+                    criteris = cat.get("criterios", [])
+                    outcomes_creats_ra = 0
+                    outcomes_duplicats_ra = 0
 
-                        for elem in criteris:
-                            nom = elem["nombre"]
+                    for elem in criteris:
+                        nom = elem["nombre"]
+                        
+                        # ⚠️ COMPATIBILITAT COMPLETA: CE5.b, RA5.b, R5.b, CE5-b, RA5-b, etc.
+                        patterns = [
+                            r"(CE|RA|R)(\d+)[\.\-]?(\w+)",  # CE5.b, RA5-b, R5.b
+                            r"(CE|RA|R)(\d+)(\w+)"          # CE5b, RA5b, R5b
+                        ]
+                        
+                        match = None
+                        for pattern in patterns:
+                            match = re.match(pattern, nom.strip())
+                            if match:
+                                break
+                        
+                        if not match:
+                            self.output.insert(tk.END, f"⚠️ Format de nom incorrecte: {nom}\n", "warning")
+                            continue
                             
-                            # ⚠️ COMPATIBILITAT COMPLETA: CE5.b, RA5.b, R5.b, CE5-b, RA5-b, etc.
-                            # Patterns acceptats:
-                            # - CE5.b, CE5-b, CE5b
-                            # - RA5.b, RA5-b, RA5b  
-                            # - R5.b, R5-b, R5b
-                            patterns = [
-                                r"(CE|RA|R)(\d+)[\.\-]?(\w+)",  # CE5.b, RA5-b, R5.b
-                                r"(CE|RA|R)(\d+)(\w+)"          # CE5b, RA5b, R5b
-                            ]
-                            
-                            match = None
-                            for pattern in patterns:
-                                match = re.match(pattern, nom.strip())
-                                if match:
-                                    break
-                            
-                            if not match:
-                                self.output.insert(tk.END, f"⚠️ Format de nom incorrecte: {nom}\n", "warning")
-                                continue
-                                
-                            # Processar el match
-                            if len(match.groups()) == 3:
-                                tipus, numero, lletra = match.groups()
-                            else:
-                                # Si el pattern no captura correctament, intentar extraure manualment
-                                tipus = re.search(r'(CE|RA|R)', nom)
-                                if tipus:
-                                    tipus = tipus.group(1)
-                                    # Extreure número i lletra
-                                    rest = nom[len(tipus):]
-                                    nums = re.search(r'(\d+)', rest)
-                                    lets = re.search(r'[\.\-]?([a-zA-Z])', rest)
-                                    if nums and lets:
-                                        numero, lletra = nums.group(1), lets.group(1)
-                                    else:
-                                        self.output.insert(tk.END, f"⚠️ No s'ha pogut extreure número/lletra de: {nom}\n", "warning")
-                                        continue
+                        # Processar el match
+                        if len(match.groups()) == 3:
+                            tipus, numero, lletra = match.groups()
+                        else:
+                            # Si el pattern no captura correctament, intentar extraure manualment
+                            tipus = re.search(r'(CE|RA|R)', nom)
+                            if tipus:
+                                tipus = tipus.group(1)
+                                # Extreure número i lletra
+                                rest = nom[len(tipus):]
+                                nums = re.search(r'(\d+)', rest)
+                                lets = re.search(r'[\.\-]?([a-zA-Z])', rest)
+                                if nums and lets:
+                                    numero, lletra = nums.group(1), lets.group(1)
                                 else:
-                                    self.output.insert(tk.END, f"⚠️ Format desconegut: {nom}\n", "warning")
+                                    self.output.insert(tk.END, f"⚠️ No s'ha pogut extreure número/lletra de: {nom}\n", "warning")
                                     continue
-                            
-                            # Normalitzar a format RA (Resultat Aprenentatge)
-                            short = f"RA{numero}.{lletra.lower()}"
-                            
-                            # Extreure descripció completa
-                            if ":" in nom:
-                                desc = nom.split(":", 1)[-1].strip()
                             else:
-                                # Si no hi ha dos punts, buscar després del patró
-                                desc_match = re.search(r'(CE|RA|R)\d+[\.\-]?\w+\s*[:-]?\s*(.+)', nom)
-                                desc = desc_match.group(2).strip() if desc_match else nom
-                            
-                            full = f"{short}: {desc}"
-                            
-                            # Debug info (opcional)
-                            self.output.insert(tk.END, f"   🔍 Processant: '{nom}' → '{short}'\n")
-                            
-                            # Crear outcome
-                            crear_outcome(
-                                session=self.session, 
-                                cookie=self.cookie, 
-                                base_url=self.base_url, 
-                                sesskey=self.sesskey, 
-                                course_id=self.course_id,
-                                shortname=short, 
-                                fullname=full, 
-                                scaleid=escala_id,
-                                output=self.output
-                            )
-                            
-                            # Incrementar barra de progrés
-                            progress_callback()
+                                self.output.insert(tk.END, f"⚠️ Format desconegut: {nom}\n", "warning")
+                                continue
+                        
+                        # Normalitzar a format RA (Resultat Aprenentatge)
+                        short = f"RA{numero}.{lletra.lower()}"
+                        
+                        # ✅ NOVA VERIFICACIÓ: Comprovar si l'outcome ja existeix
+                        if short.lower() in outcomes_existents:
+                            self.output.insert(tk.END, f"   ⏭️ CE duplicat (ja existeix): {short}\n", "warning")
+                            outcomes_duplicats_ra += 1
+                            progress_callback()  # Incrementar barra igualment
+                            continue
+                        
+                        # Extreure descripció completa
+                        if ":" in nom:
+                            desc = nom.split(":", 1)[-1].strip()
+                        else:
+                            # Si no hi ha dos punts, buscar després del patró
+                            desc_match = re.search(r'(CE|RA|R)\d+[\.\-]?\w+\s*[:-]?\s*(.+)', nom)
+                            desc = desc_match.group(2).strip() if desc_match else nom
+                        
+                        full = f"{short}: {desc}"
+                        
+                        # Debug info (opcional)
+                        self.output.insert(tk.END, f"   🔍 Processant: '{nom}' → '{short}'\n")
+                        
+                        # Crear outcome
+                        crear_outcome(
+                            session=self.session, 
+                            cookie=self.cookie, 
+                            base_url=self.base_url, 
+                            sesskey=self.sesskey, 
+                            course_id=self.course_id,
+                            shortname=short, 
+                            fullname=full, 
+                            scaleid=escala_id,
+                            output=self.output
+                        )
+                        
+                        outcomes_creats_ra += 1
+                        outcomes_existents.add(short.lower())  # Afegir als existents
+                        
+                        # Incrementar barra de progrés
+                        progress_callback()
+
+                    # Resum per RA
+                    if outcomes_duplicats_ra > 0:
+                        self.output.insert(tk.END, f"   📊 RA '{ra_full}': {outcomes_creats_ra} nous, {outcomes_duplicats_ra} duplicats\n")
 
                 self.output.insert(tk.END, "\n✅ Procés completat correctament!\n", "success")
                 
@@ -590,29 +783,4 @@ class AulesManager:
                 self.output.insert(tk.END, f"❌ Error durant el procés: {e}\n", "error")
 
         threading.Thread(target=worker, daemon=True).start()
-
-    def _outcomes_worker(self, fitxer_json, escala_nom):
-        count = 0
-
-        def _increment():
-            nonlocal count
-            count += 1
-            self.progress["value"] = count
-            self.progress.update_idletasks()
-
-        # Passar funció increment al core
-        crear_outcomes_des_de_json(
-            self.session,
-            self.cookie,
-            self.base_url,
-            self.sesskey,
-            self.course_id,
-            fitxer_json,
-            escala_nom,
-            self.output,
-            progress_callback=_increment
-        )
-
-        self.output.insert(tk.END, "\n✔ Operació finalitzada!\n", "success")
-
 
