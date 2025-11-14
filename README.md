@@ -40,9 +40,8 @@ Ací pots descarregar un exemple complet de fitxer JSON amb RA i CE preparat per
   ]
 }
 ```
-Ací pots descarregar un exemple complet de fitxer JSON amb RA i CE: [./data/exemple_outcomes.json](exemple_outcomes.json).
-
-També necessites una escala d’avaluació. Aquesta cal crear-la prèviament de manera manual, perquè per a crear escales a nivell global s’ha de ser administrador (i, almenys a mi, Aules no m’ha deixat fer-ho automàticament). Si utilitzes un Moodle diferent, l’eina també pot importar escales des de fitxers CSV sempre que tingues permisos d’administració.
+### ⚠️ Abans d’importar: crea o selecciona una escala
+També necessites una escala d’avaluació pera assignar-la quan es crea el criteri a Aules. Aquesta cal esollir-la entre les que té Aules o crear-la prèviament de manera manual, perquè per a crear escales a nivell global s’ha de ser administrador (i, almenys a mi, Aules no m’ha deixat fer-ho automàticament). Si utilitzes un Moodle diferent, l’eina també pot importar escales des de fitxers CSV sempre que tingues permisos d’administració.
 
 ![Escales](imatges/escales.png)
 ![afigura escala](imatges/afigEscalanova.png)
@@ -50,8 +49,7 @@ També necessites una escala d’avaluació. Aquesta cal crear-la prèviament de
 
 > Recorda que les escales són globals per a tot el Moodle/Aules —excepte les que crees manualment dins d’un curs, que només s’apliquen allí. Per això és important identificar amb exactitud quina escala vols utilitzar abans d’importar els outcomes. 
 
-
-
+### 📥 Importa els teus RA i CE
 L’app comprova si els RA o CE ja existeixen i no els duplica. També revisa que els pesos dels criteris dins de cada RA sumen 100%, i crea automàticament les categories per a cada resultat. Tingues present que el que importes realment són els criteris dins de cada RA o CE, no els RA o CE en si mateixos.
 ![llibre abans](imatges/llibre.png)
 ![connexió](imatges/connexion.png)
