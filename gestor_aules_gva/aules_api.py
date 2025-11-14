@@ -148,8 +148,8 @@ def obtenir_outcomes_existents(session, cookie, base_url, course_id, output=None
 # -------------------------------------------------------------
 # CREAR CATEGORIA RA
 # -------------------------------------------------------------
-def crear_categoria_ra(session, cookie, base_url, sesskey, course_id, nom, output):
-    output.insert(tk.END, f"➕ Creant categoria RA: {nom}\n")
+def crear_categoria_ra(session, cookie, base_url, sesskey, course_id, nom, output, peso=None):
+    output.insert(tk.END, f"➕ Creant categoria RA/CE: {nom}\n")
     form = {
         "courseid": course_id,
         "sesskey": sesskey,
@@ -162,6 +162,12 @@ def crear_categoria_ra(session, cookie, base_url, sesskey, course_id, nom, outpu
         "hidden": 0,
         "submitbutton": "Guardar canvis"
     }
+
+    # AFEGIR EL PES SI S'HA PROPORCIONAT
+    if peso is not None:
+        form['weight'] = peso
+        output.insert(tk.END, f"   📊 Amb pes: {peso}%\n")
+
     r = session.post(f"{base_url}/grade/edit/tree/category.php", cookies=cookie, data=form)
     if r.status_code == 200:
         output.insert(tk.END, f"✅ Categoria '{nom}' creada correctament.\n")

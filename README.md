@@ -15,7 +15,9 @@ Has de tindre a mà la web del Moodle/Aules, l’ID del curs, el teu usuari i co
 ![Login](imatges/accedir.png)
 
 
- L’eina els importarà a Aules automàticament, crearà les categories que calen i assignarà els criteris amb els seus pesos corresponents.
+ L’eina els importarà a Aules automàticament, crearà les categories automàticament i es pretenia que assignara els criteris amb els seus pesos corresponents però en Moodle els pesos no s'apliquen directament a les categories. El pes es configura al càlcul total de la categoria pare. Així que, per a que els pesos tinguen efecte, cal configurar l'agregació de la categoria pare com a "Mitjana ponderada de les qualificacions". Això permetrà que els pesos dels criteris dins de cada RA o CE es respecten en el càlcul global.
+ 
+ >No he pogut automatitzar aquest pas des de l'eina, així que hauràs de fer-ho manualment després d'importar els outcomes.
 
 ### 📥 Exemple de fitxer JSON
 
@@ -50,12 +52,14 @@ També necessites una escala d’avaluació pera assignar-la quan es crea el cri
 > Recorda que les escales són globals per a tot el Moodle/Aules —excepte les que crees manualment dins d’un curs, que només s’apliquen allí. Per això és important identificar amb exactitud quina escala vols utilitzar abans d’importar els outcomes. 
 
 ### 📥 Importa els teus RA i CE
-L’app comprova si els RA o CE ja existeixen i no els duplica. També revisa que els pesos dels criteris dins de cada RA sumen 100%, i crea automàticament les categories per a cada resultat. Tingues present que el que importes realment són els criteris dins de cada RA o CE, no els RA o CE en si mateixos.
+L’app comprova si els RA o CE ja existeixen i no els duplica. També revisa que els pesos dels criteris dins de cada RA sumen 100% (encara que no val per a res ja que caldrà ajustar-los més tard), i crea automàticament les categories per a cada resultat. Tingues present que el que importes realment són els criteris dins de cada RA o CE, no els RA o CE en si mateixos.
 ![llibre abans](imatges/llibre.png)
 ![connexió](imatges/connexion.png)
 ![importa](imatges/importaroutcomes.png)
 
 Una volta importat tot, al llibre de qualificacions veuràs les categories, i conforme vages creant tasques i assignant-los criteris, aquests apareixeran automàticament al llibre i s’utilitzaran per a calcular les notes segons el seu pes i escala. Això et permet avaluar per competències específiques o per RA d’una manera molt més coherent i senzilla.
+
+> No es pot automatitzar l'assignació dels criteris a les categories així que hauràs de fer-ho manualment movent els criteris a la categoria corresponent després d'assignar-los a les mateixes. Aquesta és una limitació de Moodle que no es pot superar des de l'eina donat que primer cal crear el criteri i després assignar-lo a la tasca per a que aparega al llibre de qualificacions.
 
 ![categories](imatges/categories.png)
 ![tasca](imatges/tasca.png)

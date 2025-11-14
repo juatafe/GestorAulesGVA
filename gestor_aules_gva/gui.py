@@ -672,6 +672,7 @@ class AulesManager:
                 # Processar cada RA del JSON
                 for cat in data.get("resultados", []):
                     ra_full = cat["nombre"].strip()
+                    ra_peso = cat.get("peso")
                     
                     # Verificar si la categoria existeix
                     categoria_existeix = any(ra_full.lower() == c.lower() for c in categories_existents)
@@ -680,7 +681,7 @@ class AulesManager:
                         self.output.insert(tk.END, f"✓ Categoria '{ra_full}' ja existeix.\n")
                     else:
                         # Crear la categoria RA
-                        if crear_categoria_ra(self.session, self.cookie, self.base_url, self.sesskey, self.course_id, ra_full, self.output):
+                        if crear_categoria_ra(self.session, self.cookie, self.base_url, self.sesskey, self.course_id, ra_full, self.output, ra_peso):
                             categories_existents.add(ra_full)
                         else:
                             self.output.insert(tk.END, f"⚠️ Saltant outcomes per a '{ra_full}' per error en crear categoria\n", "warning")
