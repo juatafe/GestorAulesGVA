@@ -2,7 +2,9 @@
 
 ![Logo](icons/gestor-aules.png)
 
-En aquest repositori trobaràs el Gestor Aules GVA, una eina gràfica que facilita la importació massiva de resultats d’aprenentatge i criteris als cursos Moodle d’Aules GVA —o a qualsevol altra plataforma basada en Moodle.A Aules GVA, els outcomes són la manera d’avaluar competències específiques o resultats d’aprenentatge (RA). Com que el sistema de competències nadiu de Moodle és un altre món i els administradors el tenen desactivat, fem servir els "resultats" (outcomes) amb este propòsit.
+En aquest repositori trobaràs el Gestor Aules GVA, una eina gràfica que facilita la importació massiva de resultats d’aprenentatge i criteris als cursos Moodle d’Aules GVA —o a qualsevol altra plataforma basada en Moodle. 
+
+A Aules GVA, els outcomes són la manera d’avaluar competències específiques o resultats d’aprenentatge (RA) mitjançant criteris. Com que el sistema de competències natiu de Moodle és un altre món i els administradors el tenen desactivat, fem servir els "resultats" (outcomes) amb este propòsit.
 
 El plantejament és senzill: convertim els resultats d’Aules en criteris específics i els fiquem dins de categories que representen les Competències Específiques (CE) o els Resultats d’Aprenentatge (RA). D’esta manera, podem avaluar igual de bé tant per competències específiques (ESO/BAT) com per RA (FP).
 
@@ -11,8 +13,34 @@ El plantejament és senzill: convertim els resultats d’Aules en criteris espec
 Has de tindre a mà la web del Moodle/Aules, l’ID del curs, el teu usuari i contrasenya, i els teus RA o CE en un fitxer JSON.
 ![Id curs](imatges/id_curs.png)
 ![Login](imatges/accedir.png)
+
+
  L’eina els importarà a Aules automàticament, crearà les categories que calen i assignarà els criteris amb els seus pesos corresponents.
 
+### 📥 Exemple de fitxer JSON
+
+Ací pots descarregar un exemple complet de fitxer JSON amb RA i CE preparat per utilitzar:
+
+**[📄 Descarrega exemple_outcomes.json](./data/example_outcomes.json)**
+```json
+{
+  "resultados": [
+    {
+      "nombre": "RA1: Selecciona los criterios que configuran las redes para la transmisión de voz y datos, describiendo sus principales características y funcionalidad.",
+      "peso": 15,
+      "criterios": [
+        { "nombre": "RA1.a: ...", "peso": 17 },
+        { "nombre": "RA1.b: ...", "peso": 17 },
+        { "nombre": "RA1.c: ...", "peso": 17 },
+        { "nombre": "RA1.d: ...", "peso": 17 },
+        { "nombre": "RA1.e: ...", "peso": 16 },
+        { "nombre": "RA1.f: ...", "peso": 16 }
+      ]
+    }
+  ]
+}
+```
+Ací pots descarregar un exemple complet de fitxer JSON amb RA i CE: [./data/exemple_outcomes.json](exemple_outcomes.json).
 
 També necessites una escala d’avaluació. Aquesta cal crear-la prèviament de manera manual, perquè per a crear escales a nivell global s’ha de ser administrador (i, almenys a mi, Aules no m’ha deixat fer-ho automàticament). Si utilitzes un Moodle diferent, l’eina també pot importar escales des de fitxers CSV sempre que tingues permisos d’administració.
 
